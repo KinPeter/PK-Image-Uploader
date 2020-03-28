@@ -8,10 +8,32 @@
   <script type="module" src="/build/pk-image-uploader.esm.js"></script>
   <script nomodule src="/build/pk-image-uploader.js"></script>
 
+  <style>
+    .wrapper {
+      width: 480px;
+      margin: 100px auto;
+    }
+  </style>
+
 </head>
 <body>
 
-  <pk-image-uploader value="World"></pk-image-uploader>
+  <div class="wrapper">
+
+    <pk-image-uploader
+      image="https://4al52k24l8r51wpym5i46ltd-wpengine.netdna-ssl.com/wp-content/uploads/sites/2/2020/02/GettyImages-1199242002-1-scaled.jpg"
+      label="Cover image"
+    >
+    </pk-image-uploader>
+
+    <!-- <pk-image-uploader
+      image=""
+      label="Cover image"
+    >
+    </pk-image-uploader> -->
+
+  </div>
+
 
 </body>
 </html>

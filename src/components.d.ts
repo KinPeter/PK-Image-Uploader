@@ -11,7 +11,13 @@ import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
 
 export namespace Components {
   interface PkImageUploader {
-    'value': string;
+    'image': string;
+    'label': string;
+    'maxFileSize': number;
+    'maxImageHeight': number;
+    'maxImageWidth': number;
+    'minImageHeight': number;
+    'minImageWidth': number;
   }
 }
 
@@ -30,7 +36,14 @@ declare global {
 
 declare namespace LocalJSX {
   interface PkImageUploader {
-    'value'?: string;
+    'image'?: string;
+    'label'?: string;
+    'maxFileSize'?: number;
+    'maxImageHeight'?: number;
+    'maxImageWidth'?: number;
+    'minImageHeight'?: number;
+    'minImageWidth'?: number;
+    'onImagechange'?: (event: CustomEvent<any>) => void;
   }
 
   interface IntrinsicElements {
