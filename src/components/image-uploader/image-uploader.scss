@@ -66,11 +66,43 @@ $borderRadius: 5px;
     border-style: dashed;
     border-width: 1px;
     border-color: $color;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .drop-box-content {
+      text-align: center;
+
+      button {
+        border-color: $color;
+        &:hover {
+          background-color: rgb(210, 210, 210);
+        }
+      }
+
+      small {
+        display: block;
+        font-size: 12px;
+
+        &.hint {
+          margin: 1rem;
+          opacity: .8;
+        }
+
+        &.error-message {
+          position: absolute;
+          width: 100%;
+          bottom: 1rem;
+          color: $errorColor;
+        }
+      }
+
+    }
 
     &.dragging {
       border-width: 2px;
       border-color: $draggingColor;
-      background-color: rgb(190, 190, 190);
+      background-color: rgb(230, 230, 230);
     }
 
     &.error {
