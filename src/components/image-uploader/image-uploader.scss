@@ -4,10 +4,10 @@
   height: 350px;
 }
 
-$color: rgba(0, 0, 0, .6);
-$draggingColor: rgb(23, 64, 247);
-$errorColor: rgb(180, 0, 0);
-$borderRadius: 5px;
+$color: var(--iu-primary-color, rgba(0, 0, 0, .6));
+$draggingColor: var(--iu-dragging-color, rgb(66, 90, 201));
+$errorColor: var(--iu-error-color, rgb(210, 0, 0));
+$borderRadius: var(--iu-border-radius, 5px);
 
 .wrapper {
   width: 100%;
@@ -78,6 +78,7 @@ $borderRadius: 5px;
 
       button {
         border-color: $color;
+        color: $color;
         &:hover {
           background-color: rgb(210, 210, 210);
         }
@@ -94,7 +95,7 @@ $borderRadius: 5px;
 
         &.error-message {
           position: absolute;
-          width: 100%;
+          width: calc(100% - 2rem);
           bottom: 1rem;
           color: $errorColor;
         }

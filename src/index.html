@@ -14,9 +14,19 @@
     body {
       font-family: 'Roboto', sans-serif;
     }
+    #uploader-2 {
+      --iu-primary-color: rgb(96, 134, 146);
+      --iu-dragging-color: blue;
+      --iu-error-color: red;
+      --iu-border-radius: 0;
+    }
     .wrapper {
       width: 480px;
       margin: 100px auto;
+    }
+    pk-image-uploader {
+      height: 280px;
+      margin: 1rem 0;
     }
   </style>
 
@@ -26,24 +36,30 @@
   <div class="wrapper">
 
     <pk-image-uploader
-      style="height: 280px;"
+      id="uploader-1"
       image="https://4al52k24l8r51wpym5i46ltd-wpengine.netdna-ssl.com/wp-content/uploads/sites/2/2020/02/GettyImages-1199242002-1-scaled.jpg"
-      label="Cover image"
+      label="Cover image 1"
     >
     </pk-image-uploader>
 
-    <!-- <pk-image-uploader
-      image=""
-      label="Cover image"
+    <pk-image-uploader
+      id="uploader-2"
+      label="Cover image 2"
+      width-min="0"
+      width-max="0"
     >
-    </pk-image-uploader> -->
+    </pk-image-uploader>
 
   </div>
 
   <script>
-    const uploader = document.querySelector('pk-image-uploader');
-    uploader.addEventListener('imagechange', (event) => {
-      console.log('image changed:', event.detail);
+    const uploader1 = document.getElementById('uploader-1');
+    uploader1.addEventListener('imagechange', (event) => {
+      console.log('image #1 changed:', event.detail);
+    });
+    const uploader2 = document.getElementById('uploader-2');
+    uploader2.addEventListener('imagechange', (event) => {
+      console.log('image #2 changed:', event.detail);
     });
   </script>
 
