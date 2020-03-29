@@ -4,7 +4,7 @@
   height: 350px;
 }
 
-$color: rgb(75, 75, 75);
+$color: rgba(0, 0, 0, .6);
 $draggingColor: rgb(23, 64, 247);
 $errorColor: rgb(180, 0, 0);
 $borderRadius: 5px;
@@ -15,6 +15,7 @@ $borderRadius: 5px;
   position: relative;
   padding-top: 1.5rem;
   box-sizing: border-box;
+  color: $color;
 
   button {
     outline: none;

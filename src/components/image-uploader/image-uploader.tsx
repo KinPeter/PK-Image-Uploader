@@ -1,5 +1,6 @@
 import { Component, h, Prop, Host, State, Event, EventEmitter, Watch } from '@stencil/core';
 import { imageUploaderWording } from './image-uploader.wording';
+import { PictureIcon } from './picture-icon';
 
 @Component({
   tag: 'pk-image-uploader',
@@ -60,6 +61,7 @@ export class ImageUploader {
               </div>
 
             : <div class="box drop-box">
+                <PictureIcon opacity={0.6} width={40}/>
                 <p>{ this.wording.boxText }</p>
               </div>
           }
