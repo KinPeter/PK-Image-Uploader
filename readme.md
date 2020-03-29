@@ -2,7 +2,47 @@
 
 # Image Uploader Web Component
 
-This will be a reusable drag&drop image uploader web component.
+A side project for myself to create a reusable drag&drop image uploader web component and practice StencilJS.
 
-Work in progress - more info later.
+![Image uploader](https://stuff.p-kin.com/screentogif/pk-image-uploader.gif)
 
+You can check out a [DEMO PEN here](https://codepen.io/kinpeter/pen/yLNZNMX).
+
+## Properties
+
+The component can receive the following properties as html attributes.
+Only the `label` is required. If the `image` is not set, the component will simply start off with an empty state (showing the drop box).
+All the requirement rule properties have default values thus they are not required.
+
+| Property         | Attribute    | Description                           | Type     | Default     |
+| ---------------- | ------------ | ------------------------------------- | -------- | ----------- |
+| `image`          | `image`      | The URL of an already existing image  | `string` | `undefined` |
+| `label`*         | `label`      | Text label shown over the image box   | `string` | `undefined` |
+| `maxFileSize`    | `size-max`   | Maximum allowed file size in MB       | `number` | `5`         |
+| `maxImageHeight` | `height-max` | Maximum allowed image height in pixel | `number` | `4000`      |
+| `maxImageWidth`  | `width-max`  | Maximum allowed image width in pixel  | `number` | `6000`      |
+| `minImageHeight` | `height-min` | Minimum allowed image height in pixel | `number` | `240`       |
+| `minImageWidth`  | `width-min`  | Minimum allowed image width in pixel  | `number` | `320`       |
+
+> For image dimensions (px) if either of the values are set to `0` that minimum or maximum size accordingly will NOT be validated.
+
+## Events
+
+Every time the loaded image changes and the file is valid, an `imagechange` event is fired with the image file as the payload, or a `null` value if the images has been removed.
+
+| Event         | Description  | Type               |
+| ------------- | ------------ | ------------------ |
+| `imagechange` | Payload: the selected file or `null` | `CustomEvent<File | null>` |
+
+## Styles
+
+* Component width is set to `100%` of the parent element
+* Component height is `350px` by default but can be easily overwritten by simply assigning a new height in CSS for the `pk-image-uploader` element
+* CSS variables can be set to overwrite some of the default settings:
+
+| CSS variable | Description | Default        |
+| ------------ | ----------- | -------------- |
+| `--iu-primary-color`  | Color of the texts and borders | `#00000099` |
+| `--iu-dragging-color` | Color of the border while dragging | `#425AC9`   |
+| `--iu-error-color`    | Color of the border and the error message in case of invalid file | `#D20000` |
+| `--iu-border-radius`  | Border radius of the component box and buttons | `5px` |

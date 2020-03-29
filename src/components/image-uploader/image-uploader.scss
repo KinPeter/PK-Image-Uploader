@@ -4,9 +4,9 @@
   height: 350px;
 }
 
-$color: var(--iu-primary-color, rgba(0, 0, 0, .6));
-$draggingColor: var(--iu-dragging-color, rgb(66, 90, 201));
-$errorColor: var(--iu-error-color, rgb(210, 0, 0));
+$color: var(--iu-primary-color, #00000099);
+$draggingColor: var(--iu-dragging-color, #425ac9);
+$errorColor: var(--iu-error-color, #d20000);
 $borderRadius: var(--iu-border-radius, 5px);
 
 .wrapper {

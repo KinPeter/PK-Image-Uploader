@@ -23,7 +23,7 @@ export class ImageUploader {
   @State() errorMessage: string = '';
   @State() isDragging: boolean = false;
 
-  @Event() imagechange: EventEmitter;
+  @Event() imagechange: EventEmitter<File | null>;
 
   wording = imageUploaderWording;
 

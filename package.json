@@ -1,7 +1,7 @@
 {
   "name": "pk-image-uploader",
-  "version": "0.0.1",
-  "description": "Image Uploader Web Component",
+  "version": "1.0.0",
+  "description": "Image Uploader Web Component - Side project to learn Stencil JS",
   "author": "Peter Kin",
   "license": "MIT",
   "repository": {

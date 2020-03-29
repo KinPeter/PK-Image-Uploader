@@ -43,7 +43,7 @@ declare namespace LocalJSX {
     'maxImageWidth'?: number;
     'minImageHeight'?: number;
     'minImageWidth'?: number;
-    'onImagechange'?: (event: CustomEvent<any>) => void;
+    'onImagechange'?: (event: CustomEvent<File | null>) => void;
   }
 
   interface IntrinsicElements {
