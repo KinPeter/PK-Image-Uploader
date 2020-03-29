@@ -33,7 +33,10 @@ export class ImageUploader {
 
   @Watch('selectedFile')
   onSelectedFileChange(newValue: File | null) {
-    this.imagechange.emit(newValue);
+    if (!this.isInvalid) {
+      this.imageSrc = newValue ? URL.createObjectURL(newValue) : null;
+      this.imagechange.emit(newValue);
+    }
   }
 
   onRemove() {
@@ -42,11 +45,26 @@ export class ImageUploader {
   }
 
   onBrowse() {
-
+    const input = document.createElement('input');
+    input.setAttribute('type', 'file');
+    input.click();
+    input.addEventListener('change', async () => {
+      if (input.files && await this.validateFile(input.files[0]) ) {
+        this.selectedFile = input.files[0];
+      }
+    });
   }
 
-  onDrop(e: DragEvent) {
+  async onDrop(e: DragEvent) {
     e.preventDefault();
+    if (e.dataTransfer && e.dataTransfer.files.length) {
+      const file = e.dataTransfer.files[0]
+      if (await this.validateFile(file)) {
+        this.selectedFile = file
+      } else {
+        this.selectedFile = null
+      }
+    }
     this.isDragging = false;
   }
 
@@ -57,6 +75,7 @@ export class ImageUploader {
 
   onDragEnter(e: DragEvent) {
     e.preventDefault();
+    this.resetErrorState();
     this.isDragging = true;
     this.imageSrc = null;
   }
@@ -64,6 +83,59 @@ export class ImageUploader {
   onDragLeave(e: DragEvent) {
     e.preventDefault();
     this.isDragging = false;
+  }
+
+  async validateFile(file: File): Promise<boolean> {
+    this.resetErrorState();
+    if (file.type !== 'image/png' && file.type !== 'image/jpeg') {
+      this.isInvalid = true;
+      this.errorMessage = this.wording.typeError;
+      return false;
+    }
+
+    if (file.size > this.maxFileSize * 1024 * 1024) {
+      this.isInvalid = true;
+      this.errorMessage = this.wording.sizeError(this.maxFileSize);
+      return false;
+    }
+
+    const image = await this.loadFileToImage(file);
+
+    if (this.minImageHeight != 0 && this.minImageWidth != 0 &&
+      (image.width < this.minImageWidth || image.height < this.minImageHeight)
+    ) {
+      this.isInvalid = true;
+      this.errorMessage = this.wording.smallError(this.minImageWidth, this.minImageHeight);
+      return false;
+    }
+
+    if (this.maxImageWidth != 0 && this.maxImageHeight != 0 &&
+      (image.width > this.maxImageWidth || image.height > this.maxImageHeight)
+    ) {
+      this.isInvalid = true;
+      this.errorMessage = this.wording.bigError(this.maxImageWidth, this.maxImageHeight);
+      return false;
+    }
+
+    return true
+  }
+
+  loadFileToImage(file: File): Promise<HTMLImageElement> {
+    return new Promise((resolve, reject) => {
+      const image = new Image();
+      image.onload = () => {
+        resolve(image);
+      };
+      image.onerror = () => {
+        reject(new Error());
+      };
+      image.src = URL.createObjectURL(file);
+    })
+  }
+
+  resetErrorState(): void {
+    this.errorMessage = '';
+    this.isInvalid = false;
   }
 
   render() {
@@ -76,7 +148,7 @@ export class ImageUploader {
           onDragEnter={(e) => this.onDragEnter(e)}
           onDragLeave={(e) => this.onDragLeave(e)}
         >
-          <label>{this.label}</label>
+          <label class={{ 'error': this.isInvalid }}>{this.label}</label>
 
           {this.imageSrc
             ? <div
@@ -90,7 +162,7 @@ export class ImageUploader {
                   'box': true,
                   'drop-box': true,
                   'dragging': this.isDragging,
-                  'invalid': this.isInvalid
+                  'error': this.isInvalid
                 }}
               >
                 <div class="drop-box-content">
