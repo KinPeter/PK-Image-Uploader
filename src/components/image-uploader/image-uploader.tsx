@@ -1,4 +1,4 @@
-import { Component, h, Prop, Host, State, Event, EventEmitter } from '@stencil/core';
+import { Component, h, Prop, Host, State, Event, EventEmitter, Watch } from '@stencil/core';
 import { imageUploaderWording } from './image-uploader.wording';
 
 @Component({
@@ -25,10 +25,45 @@ export class ImageUploader {
 
   wording = imageUploaderWording;
 
+  componentWillLoad() {
+    this.imageSrc = this.image;
+  }
+
+  @Watch('selectedFile')
+  onSelectedFileChange(newValue: File | null) {
+    this.imagechange.emit(newValue);
+  }
+
+  onRemove() {
+    this.imageSrc = '';
+    this.selectedFile = null;
+  }
+
   render() {
     return (
       <Host>
-        <label>{this.label}</label>
+        <div
+          class="wrapper"
+          onDrop={() => {}}
+          onDragOver={() => {}}
+          onDragEnter={() => {}}
+          onDragLeave={() => {}}
+        >
+          <label>{this.label}</label>
+
+          {this.imageSrc
+            ? <div
+                class="box image-box"
+                style={{ backgroundImage: `url(${this.imageSrc})` }}
+              >
+                <button onClick={() => this.onRemove()}>{ this.wording.removeButton }</button>
+              </div>
+
+            : <div class="box drop-box">
+                <p>{ this.wording.boxText }</p>
+              </div>
+          }
+        </div>
       </Host>
     );
   }

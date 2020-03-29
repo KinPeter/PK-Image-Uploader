@@ -9,6 +9,9 @@
   <script nomodule src="/build/pk-image-uploader.js"></script>
 
   <style>
+    body {
+      font-family: sans-serif;
+    }
     .wrapper {
       width: 480px;
       margin: 100px auto;
@@ -21,6 +24,7 @@
   <div class="wrapper">
 
     <pk-image-uploader
+      style="height: 280px;"
       image="https://4al52k24l8r51wpym5i46ltd-wpengine.netdna-ssl.com/wp-content/uploads/sites/2/2020/02/GettyImages-1199242002-1-scaled.jpg"
       label="Cover image"
     >
@@ -34,6 +38,12 @@
 
   </div>
 
+  <script>
+    const uploader = document.querySelector('pk-image-uploader');
+    uploader.addEventListener('imagechange', (event) => {
+      console.log('image changed:', event);
+    });
+  </script>
 
 </body>
 </html>
